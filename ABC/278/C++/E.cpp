@@ -6,14 +6,11 @@
 using namespace std;
 
 int main(){
-    // test input
-    int H=3; int W=4; int N=5; int h=2; int w=2; 
-    vector<vector<int>> A = {{2, 2, 1, 1}, {3, 2, 5, 3}, {3, 4, 4, 3}};
     // std input
-    // int H, W, N, h, w;
-    // cin >> H >> W >> N >> h >> w;
-    // vector<vector<int>> A(H, vector<int>(W));
-    // rep(row, H)rep(col, W) cin >> A[row][col];
+    int H, W, N, h, w;
+    cin >> H >> W >> N >> h >> w;
+    vector<vector<int>> A(H, vector<int>(W));
+    rep(row, H)rep(col, W) cin >> A[row][col];
 
     vector<vector<int>> ans(H-h+1, vector<int>(W-w+1));
     
@@ -38,12 +35,8 @@ int main(){
         /* ----------------------------------------------*/
         // counts the number of num in the whole grid
         rep(row, H)rep(col, W) add_to_counter(row, col);
-        // discounts, from the whole grid, the number of num in the black grid
+        // discounts, from the whole grid, the number of num in the black grid that stays at the left-most
         rep(lrow, h)rep(lcol, w-1) del_from_counter(grow+lrow, lcol);
-        if(grow == 1){
-            rep(i,N+1) cout << counter[i] << " ";
-            cout << "\n";
-        }
         rep(gcol, W-w+1){
             rep(row, h) del_from_counter(grow+row, w-1+gcol);
             ans[grow][gcol] = num_kinds;
@@ -56,6 +49,3 @@ int main(){
     }
     return 0;
 }
-// test output
-// 4 4 3 
-// 5 3 4 
