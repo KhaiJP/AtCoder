@@ -1,4 +1,3 @@
-using Pkg; Pkg.add("DataStructures")
 using DataStructures
 function main()
     N = parse(Int, readline())
@@ -12,7 +11,7 @@ function main()
     h = 1
     checked = Set{Int}(1)
     push!(q, 1)
-    # DFS
+    # BFS
     while !isempty(q)
         u = popfirst!(q)
         for v in get!(V, u, [])
