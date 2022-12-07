@@ -9,8 +9,8 @@ function isAchievable(Arr::Array{Int}, t::Int, isY::Bool)
     end
     # DP
     for col = 2:N
+        a = Arr[col]
         for row = 1:2L+1
-            a = Arr[col]
             if get(DP, (row-a, col-1), 0) == 1
                 DP[row, col] = 1
             end
@@ -32,6 +32,6 @@ function main()
     for (i, a) ∈ enumerate(A)
         i%2==0 ? push!(A_e, a) : push!(A_o, a)
     end
-    ( isAcheavable(A_o, x, false) && isAcheavable(A_e, y, true)) ? "Yes"|>print : "No"|>print
+    ( isAchievable(A_o, x, false) && isAchievable(A_e, y, true)) ? "Yes"|>print : "No"|>print
 end
 main()
