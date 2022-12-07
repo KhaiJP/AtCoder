@@ -7,8 +7,6 @@ using namespace std;
 bool isAchievable(vector<int> v, int t, bool isY);
 
 int main(){
-    // int N = 3; int x = -1; int y = 1;
-    // vector<int> A_e = {1}; vector<int> A_o{2,3};
     int N, x, y; cin >> N >> x >> y;
     vector<int> A_e(N/2); vector<int> A_o((N+1)/2);
     rep(i,N) (i)%2==0 ? cin>>A_o[i/2] : cin>>A_e[i/2];
