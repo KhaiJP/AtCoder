@@ -1,12 +1,12 @@
 function main()
     H, W = parse.(Int, readline()|>split)
-    C = Array{Int}(undef,W,H)
+    C = fill(false, W, H)
     for h ∈ 1:H
-        C[:, h] = [s=='#' ? 1 : 0 for s in readline()]
+        C[:, h] = [s=='#' for s in readline()]
     end
     C = transpose(C)
     for w ∈ 1:W
-        "$(map(x->x==1, C[:,w]) |> sum) " |> print
+        "$(C[:,w] |> sum) " |> print
     end
 end
 main()
