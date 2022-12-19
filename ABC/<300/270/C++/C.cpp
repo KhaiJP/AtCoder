@@ -20,7 +20,7 @@ int main(){
   q.push_back(Y);
   Prev[Y] = 0;
   while (!q.empty()){
-    int u = q.front(); q.pop_back();
+    int u = q.front(); q.pop_front();
     if(Edge.count(u)==0) continue;
     rep(i,0,Edge[u].size()){
       int v = Edge[u][i];
