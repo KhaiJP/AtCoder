@@ -9,6 +9,7 @@ int main(){
   int64_t answer = 1e20;
   int64_t ref = 0;
   rep(i,0,N){
+    if(i == X) break;
     int64_t tmp = ref + A[i] + (X-i)*B[i];
     answer = tmp < answer ? tmp : answer;
     ref += A[i] + B[i];
