@@ -23,3 +23,11 @@ int main(){
   cout << answer << endl;
   return 0;
 }
+
+/*  
+According to the official review; https://www.youtube.com/watch?v=l_-Eh5BP-wE,
+there is no need to prepare vector to consider prefix sum.
+This is interpretable because inside of the for-loop, from line 16 to 22,
+we only consider i-th and (i-1)-th element just like Markovian chain.
+This means we do not need to store all the history but only 1.
+*/
