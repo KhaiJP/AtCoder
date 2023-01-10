@@ -5,13 +5,17 @@ using namespace std;
 typedef int64_t ll;
 #define rep(i,s,t) for(int i = (s); i < (t); ++i)
 
+// kinda greedy
 int main(){
   ll N, H; cin >> N >> H;
   vector<ll> A(N), B(N); rep(i,0,N) cin >> A[i] >> B[i];
+
   ll maxA = 0;
   rep(i,0,N) maxA = max(maxA, A[i]);
+
   priority_queue<ll> actions;
   actions.push(maxA);
+  // if b_i is small than maxA, then no need to be thrown;
   rep(i,0,N)if(B[i] > maxA) actions.push(B[i]);
   ll num_throws = 0;
   while(!actions.empty()){
