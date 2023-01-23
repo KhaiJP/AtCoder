@@ -17,8 +17,8 @@ int main(){
   rep(i,0,N){
     vector<int> divs;
     getDivisors(A[i], divs);
-    fore(div, divs){
-      answer += ll1 * CNT[div]*CNT[A[i]/div]; 
+    fore(Aj, divs){
+      answer += ll1 * CNT[Aj]*CNT[A[i]/Aj]; 
     }
   }
   cout << answer << endl;
