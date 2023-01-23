@@ -2,7 +2,6 @@
 using namespace std;
 typedef int64_t ll;
 #define rep(i, s, t) for(int i = (s); i < (t); ++i)
-#define fore(a, v) for(auto a : v)
 
 int dp[1001][10001];
 int H, N;
