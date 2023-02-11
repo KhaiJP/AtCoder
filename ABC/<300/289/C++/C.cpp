@@ -1,5 +1,4 @@
 #include<iostream>
-#include<vector>
 #include<set>
 using namespace std;
 #define rep(i, s, t) for(int i = (s); i < (t); ++i)
@@ -17,27 +16,22 @@ int main(){
     }
   }
 
-
   // bit-brute-force
   int ans = 0;
   int mx = (1 << M);
   rep(i, 1, mx){
-    vector<int> v;
-    int j = i;
-    int ord = 0;
+    int j = i, ord = 0;
+    set<int> ref;
+
     while (j > 0){
-      if(j & 1) v.push_back(ord);
+      if(j & 1)fore(a, S[ord]) ref.insert(a);
       ++ord;
       j >>= 1;
     }
-
-    set<int> ref;
-    fore(k, v)fore(a, S[k]) ref.insert(a);
     
     ans += ref.size() == N;
   }
 
   cout << ans << endl;
-
   return 0;
 }
