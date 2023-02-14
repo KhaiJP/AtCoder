@@ -6,7 +6,7 @@ using ll = int64_t;
 #define W_MAX 100010
 #define INF 1000000000+7
 
-// dp[i][cw] : maximum total value choosing up to item i
+// dp[i][cw] : maximum total value choosing up to item i with current weight cw
 ll dp[N_MAX][W_MAX], w[N_MAX], v[N_MAX];
 
 int main(){
