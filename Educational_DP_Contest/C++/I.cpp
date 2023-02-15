@@ -12,13 +12,13 @@ int main(){
 
   // 0 coin show head up to coin 0 is 1, or just for convenience 
   dp[0][0] = 1;
-  rep(i, 0, N){
+  rep(i, 1, N+1){
     double p; cin >> p;
     rep(j, 0, i+1){
-      // when coin i+1 show head
-      dp[ i + 1 ][ j + 1 ] += dp[ i ][ j ] * p;
-      // when coin i+1 show tail
-      dp[ i + 1 ][ j ] += dp[ i ][ j ] * (1-p); 
+      // when coin i show head
+      dp[ i ][ j + 1 ] += dp[ i - 1][ j ] * p;
+      // when coin i show tail
+      dp[ i ][ j ] += dp[ i - 1 ][ j ] * (1-p); 
     }
   }
   
