@@ -6,6 +6,13 @@ using namespace std;
 #define yes "Yes"
 #define noo "No"
 
+// let us trim the figure S/T from the matrix S/T by a rectangle as following
+// #...      ->    #..      |  ....     ->   #..
+// ..#.      ->    ..#      |  #...     ->   #..
+// ..#.      ->    ..#      |  #...     ->   .#.
+// .....     ->             |  ..#.     ->
+// then we don't have to consider the tranlations but only rotations.
+
 vector tmp(205, vector<char>(205));
 
 void rotate(vector<vector<char>> &M, vector<vector<char>> &A, int H, int W){
@@ -34,11 +41,13 @@ int main(){
   int Hs = (N-1 -urdlS[2]) - urdlS[0] + 1, Ws = (N-1 -urdlS[1]) - urdlS[3] + 1;
   int Ht = (N-1 -urdlT[2]) - urdlT[0] + 1, Wt = (N-1 -urdlT[1]) - urdlT[3] + 1;
   
+  // trim figure S/T
   vector s1(Hs, vector<char>(Ws)), s2(Ws, vector<char>(Hs));
   rep(i, 0, Hs)rep(j, 0, Ws) s1[i][j] = S[i+urdlS[0]][j+urdlS[3]];
   vector t(Ht, vector<char>(Wt));
   rep(i, 0, Ht)rep(j, 0, Wt) t[i][j] = T[i+urdlT[0]][j+urdlT[3]];
 
+  // rotate trimmed S and check if it matches trimmed T
   bool flag = false;
   flag = flag || s1 == t; rotate(s1, s2, Hs, Ws);
   flag = flag || s2 == t; rotate(s2, s1, Ws, Hs);
