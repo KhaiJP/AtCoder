@@ -9,7 +9,7 @@ using namespace std;
 // let us trim the figure S/T from the matrix S/T by a rectangle as following
 // #...      ->    #..      |  ....     ->   #..
 // ..#.      ->    ..#      |  #...     ->   #..
-// ..#.      ->    ..#      |  #...     ->   .#.
+// ..#.      ->    ..#      |  #...     ->   ..＃
 // .....     ->             |  ..#.     ->
 // then we don't have to consider the tranlations but only rotations.
 
