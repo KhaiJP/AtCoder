@@ -22,6 +22,7 @@ int main(){
       if(r+1 < H  && Paint[r*W + c + W] == 'R') uf.merge(r*W + c, r*W + c + W);
       if(r-1 >= 0 && Paint[r*W + c - W] == 'R') uf.merge(r*W + c, r*W + c - W);
     }
+    
     if(t == 2){
       int ra, ca, rb, cb; cin >> ra >> ca >> rb >> cb;
       --ra, --ca, --rb, --cb;
@@ -32,7 +33,7 @@ int main(){
 
     --Q;
   }
-  
+
   cout << endl;
   return 0;
 }
