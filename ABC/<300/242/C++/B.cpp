@@ -1,14 +1,11 @@
 #include<iostream>
-#include<set>
+#include<algorithm>
 #include<string>
 using namespace std;
 
 int main(){
   string S; cin >> S;
-  
-  multiset<char> ms;
-  for(auto c : S) ms.insert(c);
-  for(auto c : ms) cout << c;
-  cout << endl;
+  sort(S.begin(), S.end());
+  cout << S << endl;
   return 0;
 }
