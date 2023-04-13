@@ -1,38 +1,34 @@
 #include<iostream>
 #include<vector>
-#include<unordered_map>
 using namespace std;
-typedef int64_t ll;
-#define rep(i, s, t) for (int i = (s); i < (t); ++i)
-#define fore(a, v) for(auto a : v)
-using Edges = unordered_map<ll, vector<ll>>;
+#define rep(i, s, t) for(int i = (s); i < (t); ++i)
 
-const int UL = 1000000;
+vector<int> E[200010];
+bool  visited[200010];
+int answer;
 
-int dfs(Edges &E, vector<bool> &visited, ll u){
-  ll result = 1;
-  visited[u] = true;
+void dfs(int me = 1){
+  ++answer;
 
-  fore(v, E[u]){
-    if(visited[v]) continue;
-    result += dfs(E, visited, v);
-    if(result >= UL) return UL;
+  visited[me] = true;
+  for(auto child : E[me])if(!visited[child]){
+    if(answer >= 1000000) return;
+    dfs(child);
   }
-  
-  visited[u] = false;
-  return result;
+
+  visited[me] = false;
 }
 
 int main(){
-  ll N, M; cin >> N >> M;
-  // adjacency map: node u -> adjacency nodes of u
-  Edges E;
-  rep(i,0,M){
-    ll u, v; cin >> u >> v; --u, --v;
-    E[u].push_back(v);
-    E[v].push_back(u);
+  int N, M; cin >> N >> M;
+
+  rep(i, 0, M){
+    int u, v; cin >> u >> v;
+    E[u].push_back(v);   E[v].push_back(u);
   }
-  vector<bool> visited(N, false);
-  cout << dfs(E, visited, 0) << endl;
+
+  dfs();
+
+  cout << answer << endl;
   return 0;
 }
