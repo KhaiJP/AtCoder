@@ -1,35 +1,41 @@
 #include<iostream>
 #include<algorithm>
 #include<string>
-#include<unordered_map>
 using namespace std;
-#define rep(i, s, t) for(int i = (s); i < (t); ++i)
+#define rep(i, s, t) for(int i = (s); i <(t); ++i)
 
-string S[500010];
+pair<string, int> S[500010];
+int answer[500010];
+
+int calculate_LCP(string s, string t){
+  int ul = min(s.size(), t.size());
+  
+  int lcp = 0;
+  rep(i, 0, ul){
+    if(s[i] == t[i]) ++lcp;
+    else break;
+  }
+
+  return lcp;
+}
 
 int main(){
   int N; cin >> N;
-  unordered_map<string, int> mp;
-  unordered_map<int, int> ans_map;
-  rep(i, 0, N){cin >> S[i]; mp[S[i]] = i;}
-  sort(S, S+N);
-  rep(i,0,N){
-    int ans_prev = 0, ans_next = 0;
+  rep(i, 0, N){
+    string s; cin >> s;
+    S[i] = {s, i};
+  }sort(S, S+N);
+
+  rep(i, 0, N){
     if(i > 0){
-      rep(j,0,min(S[i].size(), S[i-1].size())){
-        if(S[i][j] == S[i-1][j]) ++ans_prev;
-        else break;
-      }
+      answer[S[i].second] = max(answer[S[i].second], calculate_LCP(S[i].first, S[i-1].first));
     }
-    if(i < N -1){
-      rep(j,0,min(S[i].size(), S[i+1].size())){
-        if(S[i][j] == S[i+1][j]) ++ans_next;
-        else break;
-      }
+    if(i < N-1){
+      answer[S[i].second] = max(answer[S[i].second], calculate_LCP(S[i].first, S[i+1].first));
     }
-    ans_map[mp[S[i]]] = max(ans_prev, ans_next);
   }
-  
-  rep(i,0,N) cout << ans_map[i] << '\n';
+
+  rep(i, 0, N) cout << answer[i] << '\n';
+  cout << endl;
   return 0;
 }
