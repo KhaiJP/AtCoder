@@ -8,17 +8,14 @@ int main(){
   int l = 1, r = N;
   rep(_, 0, 20){
     int mid = (l + r) / 2;
-    cout << '?' << ' ' << mid << '\n';
+    cout << "? " << mid << endl;
     int reply; cin >> reply;
 
-    if(reply == 0){
-      l = mid;
-    }else{
-      r = mid;
-    }
+    if(reply == 0) l = mid;
+    if(reply == 1) r = mid;
 
     if(r == l + 1){
-      cout << '!' << ' ' << l << endl;
+      cout << "! " << l << endl;
       return 0;
     }
   }
