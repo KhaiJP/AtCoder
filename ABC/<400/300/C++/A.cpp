@@ -4,7 +4,6 @@ using namespace std;
 
 int main(){
   int N, A, B; cin >> N >> A >> B;
-  map<int, int> m;
 
   rep(i, 1, N+1){
     int C; cin >> C;
