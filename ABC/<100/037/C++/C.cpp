@@ -7,6 +7,7 @@ ll pfx[100010];
 
 int main(){
   int N, K; cin >> N >> K;
+
   rep(i, 0, N){
     int a; cin >> a;
     pfx[i+1] = pfx[i] + a;
