@@ -1,37 +1,45 @@
 #include<iostream>
-#include<iomanip>
-#include<vector>
-#include<map>
-#include<unordered_map>
-#include<set>
-#include<unordered_set>
-#include<deque>
-#include<queue>
-#include<string>
-#include<algorithm>
-#include<numeric>
-#include<utility>
-#include<atcoder/all>
 using namespace std;
-using namespace atcoder;
-using ll = int64_t;
-using Edges = unordered_map<ll, vector<ll>>;
-using Weights = map<pair<ll, ll>, ll>;
 #define rep(i, s, t) for(int i = (s); i < (t); ++i)
-#define rrep(i, s, t) for(int i = (s); i >= (t); --i)
-#define repc(c) for(char c = 'a'; c != 'z'+1; ++c)
-#define fore(a, v) for(auto a : v)
-#define yes "Yes"
-#define noo "No"
 
-const int inf =  1000000000+7;
-const ll llinf =  1000000000000000000;
-const ll ll1   = 1;
-int DR[] = {-1,  0,  1,  0, -1,  1,  1, -1};
-int DC[] = { 0,  1,  0, -1,  1,  1, -1, -1};
+int answer[100010], p[100010], index, N;
+
+void run_length(string S){
+  int l = 0;
+  char current = 'R';
+  rep(i, 0, N){
+    if(S[i] == current) ++l;
+    else{
+      p[index] = l;
+      l = 1;
+      current = S[i];
+      ++index;
+    }
+  }
+  p[index] = l;
+  ++index;
+}
 
 int main(){
+  string S; cin >> S;
+  N = S.size();
+  run_length(S);
+   
+  int j = 0;
+  rep(i, 0, index){
+    // checking Ls
+    if(i & 1){
+      answer[j-1] += p[i]/2;
+      answer[j]   += (p[i]+1)/2;
+    }
+    // checking Rs
+    else{
+      answer[j+p[i]]   += p[i]/2;
+      answer[j+p[i]-1] += (p[i]+1)/2;
+    }
+    j += p[i];
+  }
 
-
+  rep(i, 0, N) cout << answer[i] << ' '; cout << endl;
   return 0;
 }
