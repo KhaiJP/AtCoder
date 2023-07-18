@@ -4,7 +4,7 @@ using ll = int64_t;
 #define rep(i, s, t) for(int i = (s); i < (t); ++i)
 
 bool A[1000010];
-ll dp[100010][2];
+ll dp[1000010][2];
 
 int main(){
   int N; cin >> N;
