@@ -1,24 +1,26 @@
 #include<iostream>
-#include<vector>
-#define rep(i,n) for(int i=0; i<(n); ++i)
 using namespace std;
+using ll = int64_t;
+#define rep(i, s, t) for(int i = (s); i < (t); ++i)
+#define chmax(a, b) a = max(a, b)
+
+ll A[110], dp[110][110][110];
 
 int main(){
   int N, K, D; cin >> N >> K >> D;
-  vector<int> A(N); rep(i,N) cin >> A[i];
-  vector dp(N+1, vector(K+1, vector<long long>(D, -1)));
+  rep(i, 0, N) cin >> A[i];
+  
+  rep(i, 0, N)rep(k, 0, K+1)rep(r, 0, D) dp[i][k][r] = -1;
   dp[0][0][0] = 0;
   
-  rep(n,N) rep(k,K+1) rep(d,D){
-    if(dp[n][k][d]==-1) continue;
-    // when A[n] is NOT taken
-    dp[n+1][k][d] = max(dp[n+1][k][d], dp[n][k][d]);
-    // when A[n] is taken
-    if(k != K){
-      dp[n+1][k+1][(d+A[n])%D] = max(dp[n+1][k+1][(d+A[n])%D], 
-                                     dp[n][k][d]+A[n]);
-    }
+  rep(i, 0, N)rep(k, 0, K+1)rep(r, 0, D)if(dp[i][k][r] != -1){
+    // A[i] is not chosen
+    chmax( dp[i+1][k][r], dp[i][k][r] );
+    if(k == K) continue;
+    // A[i] is chosen
+    chmax( dp[i+1][k+1][(r+A[i])%D], dp[i][k][r] + A[i]);
   }
+  
   cout << dp[N][K][0] << endl;
   return 0;
 }
