@@ -1,32 +1,32 @@
 #include<iostream>
 #include<queue>
-#include<set>
+#include<unordered_set>
 using namespace std;
 using ll = int64_t;
 #define rep(i, s, t) for(int i = (s); i < (t); ++i)
 
-ll A[14], N, K;
-priority_queue<ll> q;
-set<ll> monitor;
-
-ll Dijkstra_ish(){
-  ll pay = -q.top(); q.pop();
-  if(monitor.count(pay) == 1) return Dijkstra_ish();
-  
-  monitor.insert(pay);
-  if(monitor.size() == K) return pay;
-
-  rep(i, 0, N) q.push( -( pay + A[i] ) );
-  return Dijkstra_ish();
-}
+ll A[11], N, K, k;
 
 int main(){
   cin >> N >> K;
-  rep(i, 0, N){
-    cin >> A[i];
+  rep(i, 0, N) cin >> A[i];
+  unordered_set<ll> S;
+  priority_queue<ll> q;
+  rep(i, 0, N)if(S.count(A[i]) == 0){
     q.push(-A[i]);
+    S.insert(A[i]);
   }
-
-  cout << Dijkstra_ish() << endl;
-  return 0;
+  
+  while(1){
+    ll p = -q.top(); q.pop();
+    ++k;
+    if(k == K){
+      cout << p << endl;
+      return 0;
+    }
+    rep(i, 0, N)if(S.count(p+A[i]) == 0){
+      q.push(-p-A[i]);
+      S.insert(p+A[i]);
+    }
+  }
 }
