@@ -1,30 +1,18 @@
 #include<iostream>
-#include<vector>
+#include<string>
 #include<algorithm>
 using namespace std;
 using ll = int64_t;
-#define rep(i, s, t) for(int i = (s); i < (t); ++i)
 
-const ll ll1 = 1;
+ll N, r, ll1 = 1;
+string S;
 
 int main(){
-  string S; cin >> S; reverse(S.begin(), S.end());
-  ll N; cin >> N;
-  ll base = 0;
-  vector<ll> qmarks;
-
-  rep(i, 0, S.size()){
-    if(S[i] == '1') base += ((ll)1 << i);
-    if(S[i] == '?') qmarks.push_back(i);
-  }reverse(qmarks.begin(), qmarks.end());
-
-  if(base > N){
-    cout << -1 << endl;
-    return 0;
-  }
-
-  for(auto pw : qmarks)if(base + (ll1 << pw) <= N) base += (ll1 << pw);
-
-  cout << base << endl;
+  cin >> S >> N;
+  reverse(S.begin(), S.end());
+  
+  for(int i = 0; i < S.size(); ++i)if(S[i] == '1') r += (ll1 << i);
+  for(int i = S.size()-1; i >= 0; --i)if(S[i] == '?' && r + (ll1 << i) <= N) r += (ll1 << i);
+  cout << (r <= N ? r : -1) << endl;
   return 0;
 }
