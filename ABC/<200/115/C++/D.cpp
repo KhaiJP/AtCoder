@@ -1,24 +1,35 @@
 #include<iostream>
 using namespace std;
 using ll = int64_t;
-#define rep(i, s, t) for(ll i = (s); i < (t); ++i)
-#define ll1 (ll)1
+#define rep(i, s, t) for(int i = (s); i < (t); ++i)
 
-ll rec(ll level, ll x){
-  if(level == 0) return 1;
+// whole # of patties in the buger of level L
+ll whole_patties(ll L){
+  ll ret = 1;
+  ret = (ret << (L+1)) - 1;
+  return ret;
+}
+
+// whole length of the buger of lovel L
+ll whole_length(ll L){
+  ll ret = 1;
+  ret = (ret << (L+2)) - 3;
+  return ret;
+}
+
+ll f(ll L, ll x){
+  ll len = whole_length(L);
+  if(L == 0) return 1;
+  // buger of level L, aL, consists of " B  aL-1  P  aL-1  B "
   if(x == 1) return 0;
-
-  ll length = (ll1 << (level + 1)) - 3;
-  ll num = (ll1 << level) - 1;
-
-  if(x <= length + 1) return rec(level - 1, x - 1);
-  else if(x <= length + 2) return num + 1;
-  else if(x <= (length + 1) * 2) return num + 1 + rec(level - 1, x - length - 2);
-  else return 2 * num + 1;
+  if(x <= len/2)   return f(L-1, x-1);
+  if(x == len/2+1) return whole_patties(L-1) + 1;
+  if(x <= len-1)   return whole_patties(L-1) + 1 + f(L-1, x-len/2-1);
+  if(x == len) return 2 * whole_patties(L-1) + 1;
 }
 
 int main(){
   ll N, X; cin >> N >> X;
-  cout << rec(N, X) << endl;
+  cout << f(N, X) << endl;
   return 0;
 }
