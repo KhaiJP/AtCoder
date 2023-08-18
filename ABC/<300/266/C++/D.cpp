@@ -1,36 +1,27 @@
 #include<iostream>
-#include<vector>
-#include<unordered_map>
-#define rep(i, s, t) for (int i = (s); i < (t); ++i)
 using namespace std;
-typedef int64_t ll;
-typedef pair<ll, ll> pr;
+using ll = int64_t;
+#define rep(i, s, t) for(int i = (s); i < (t); ++i)
+
+ll dp[100010][10], X[100010], A[100010], N, answer;
 
 int main(){
-  int N; cin >> N;
-  unordered_map<ll, pr> um;
-  ll T, X, A;
-  rep(i,0,N){
-    cin >> T >> X >> A;
-    um[T] = {X, A};
+  cin >> N;
+  rep(i, 0, N){
+    ll t, x, a; cin >> t >> x >> a;
+    X[t] = x, A[t] = a;
   }
-  const int M = 100000;
-  vector DP(5, vector<ll>(M+1, -1));
-  DP[0][0] = 0;
-  rep(t,0,M){
-    ll x = -10, a=0;
-    if(um.count(t+1)==1){
-      x = um[t+1].first;
-      a = um[t+1].second;
-    }
-    rep(p,0,5){
-      if(DP[p][t]==-1)continue;
-      rep(q,0,5) if(abs(p-q)<=1) DP[q][t+1] = max(DP[q][t+1], DP[p][t]);
-      if(abs(p-x)<=1) DP[x][t+1] = max(DP[x][t+1], DP[p][t]+a);
+  rep(t, 0, 100001)rep(pit, 0, 5) dp[t][pit] = -1;
+  dp[0][0] = 0;
+  
+  rep(t, 0, 100001)rep(pit, 0, 5)if(dp[t][pit] != -1){
+    if(pit == X[t]) dp[t][pit] += A[t];
+    rep(next, 0, 5)if(abs(next - pit) <= 1){
+      dp[t+1][next] = max(dp[t+1][next], dp[t][pit]);
     }
   }
-  ll answer = 0;
-  rep(p,0,5) answer = max(answer, DP[p][M]);
+  
+  rep(pit, 0, 5) answer = max(answer, dp[100001][pit]);
   cout << answer << endl;
   return 0;
 }
