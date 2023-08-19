@@ -1,12 +1,11 @@
 #include<iostream>
 #include<vector>
-#include<deque>
 using namespace std;
 #define rep(i, s, t) for(int i = (s); i < (t); ++i)
 
 vector<int> E[200010];
 int N;
-deque<int> q;
+string answer;
 bool visited[200010];
 
 // Euler tour like method
@@ -16,7 +15,7 @@ void dfs(int u = 1){
     visited[v] = true;
     dfs(v);
   }
-  if(u != 1) q.push_back(u);
+  if(u != 1) answer += to_string(u) + " ";
   return ;
 }
 
@@ -31,10 +30,6 @@ int main(){
   }
 
   dfs();
-  while(q.size()){
-    cout << q.front() << ' ';
-    q.pop_front();
-  }
-  cout << endl;
+  cout << answer << endl;
   return 0;
 }
