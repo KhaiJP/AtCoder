@@ -1,54 +1,37 @@
 #include<iostream>
 #include<set>
-#include<algorithm>
 using namespace std;
 using ll = int64_t;
-#define rep(i, s, t) for(ll i = (s); i < (t); ++i)
-#define N_MAX 3001
+#define rep(i, s, t) for(int i = (s); i < (t); ++i)
+
+multiset<ll> A;
 
 int main(){
-  multiset<ll> A;
-  int Q; cin >> Q;
-
-  rep(q,0,Q){
-    int q_head; cin >> q_head;
-
-    if ( q_head == 1 ){
+  rep(i, 0, 5) A.insert(-1);
+  rep(i, 0, 5) A.insert(2e18);
+  
+  ll Q; cin >> Q;
+  while(Q--){
+    ll c; cin >> c;
+    if(c == 1){
       ll x; cin >> x;
       A.insert(x);
     }
     
-    if ( q_head == 2 ){
+    if(c == 2){
       ll x, k; cin >> x >> k;
-      bool flag = true;
-      // upper_bound(A.begin(), A.end(), x) works f***ing slowly
       auto itr = A.upper_bound(x);
-      rep(i, 0, k){
-        if ( itr == A.begin()){
-          flag = false;
-          break;
-        }
-        --itr;
-      }
-      cout << (flag ? *itr : -1) << '\n';
+      rep(i, 0, k) --itr;
+      ll y = *itr;
+      cout << (y != 2e18 ? y : -1) << endl;
     }
 
-    if ( q_head == 3 ){
+    if(c == 3){
       ll x, k; cin >> x >> k;
-      bool flag = true;
-      // lower_bound(A.begin(), A.end(), x) works f***ing slowly
       auto itr = A.lower_bound(x);
-      rep(i, 0, k-1){
-        if ( itr == A.end() ){
-          flag = false;
-          break;;
-        }
-        ++itr;
-      }
-      if ( itr == A.end() ) flag = false;
-      cout << (flag ? *itr : -1) << '\n';
+      rep(i, 1, k) ++itr;
+      ll y = *itr;
+      cout << (y != 2e18 ? y : -1) << endl;
     }
-
   }
-
 }
