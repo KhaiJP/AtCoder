@@ -1,43 +1,33 @@
 #include<iostream>
-#include<set>
-#include<utility>
 #include<atcoder/all>
+#include<set>
 using namespace std;
-using namespace atcoder;
+using UF = atcoder::dsu;
 #define rep(i, s, t) for(int i = (s); i < (t); ++i)
 
 int main(){
   int N, M; cin >> N >> M;
-  
-  dsu uf(N);
+  UF uf(N + 1);
   rep(i, 0, M){
-    int u, v; cin >> u >> v; --u, --v;
+    int u, v; cin >> u >> v;
     uf.merge(u, v);
   }
 
-  set<pair<int, int>> S;
   int K; cin >> K;
-  bool allno = false;
+  set<pair<int, int>> lXY;
   rep(i, 0, K){
-    int x, y; cin >> x >> y; --x, --y;
-    x = uf.leader(x), y = uf.leader(y);
-    if(x > y) swap(x, y);
-    S.insert({x, y});
-    allno = allno || x == y;
+    int x, y; cin >> x >> y;
+    int lx = uf.leader(x), ly = uf.leader(y);
+    if(lx > ly) swap(lx, ly);
+    lXY.insert({uf.leader(lx), uf.leader(ly)});
   }
-
+  
   int Q; cin >> Q;
-
-  rep(i, 0, Q){
-    if(allno){
-      cout << "No" << endl;
-      continue;
-    }
-    
-    int p, q; cin >> p >> q; --p, --q;
-    p = uf.leader(p), q = uf.leader(q);
-    if(p > q) swap(p, q);
-    cout << (S.count({p, q}) == 1 ? "No" : "Yes") << endl;
+  while(Q--){
+    int p, q; cin >> p >> q;
+    int lp = uf.leader(p), lq = uf.leader(q);
+    if(lp > lq) swap(lp, lq);
+    cout << (lXY.count({uf.leader(lp), uf.leader(lq)}) == 1 ? "No" : "Yes") << endl;
   }
 
   return 0;
