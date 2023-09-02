@@ -4,49 +4,40 @@
 using namespace std;
 #define rep(i, s, t) for(int i = (s); i < (t); ++i)
 
+int potential[200010], N, M, K, G;
 vector<int> E[200010];
-int dist[200010];
+priority_queue<pair<int,int>> q;
 
 int main(){
-  int N, M, K; cin >> N >> M >> K;
+  cin >> N >> M >> K;
+  // Edge preparation
   rep(i, 0, M){
     int a, b; cin >> a >> b;
-    --a, --b;
     E[a].push_back(b), E[b].push_back(a);
   }
-
-  priority_queue<pair<int,int>> pq;
+  // Guards preparation. if potential[u] > 0, u is guarded
   rep(i, 0, K){
     int p, h; cin >> p >> h;
-    --p;
-    dist[p] = h;
+    potential[p] = h+1;
+    q.push({h+1 , p});
+    ++G;
   }
+  // Dijkstra algo
+  while(q.size()){
+    int u = q.top().second, h = q.top().first;
+    q.pop();
+    if(potential[u] > h) continue;
 
-  rep(i, 0, N){
-    if(dist[i] == 0) dist[i] = -1;
-    else pq.push({dist[i], i}); 
-  }
-  
-  while(!pq.empty()){
-    int h = pq.top().first, u = pq.top().second; pq.pop();
-    if(h > dist[u]) continue;
-    for(auto v : E[u])if(h-1 > dist[v]){
-      dist[v] = h-1;
-      if(dist[v] > 0) pq.push({dist[v], v});
+    for(auto v : E[u])if(potential[v] < h - 1){
+      // if v was not guarded, then increment G
+      if(potential[v] == 0) ++G;
+      potential[v] = h - 1;
+      if(potential[v] > 1) q.push({h-1, v});
     }
   }
 
-  int G = 0;
-  queue<int> q;
-  rep(u, 0, N)if(dist[u] >= 0){
-    ++G;
-    q.push(u+1);
-  }
-
-  cout << G << '\n';
-  while(!q.empty()){
-    cout << q.front() << ' ';
-    q.pop();
-  }
+  cout << G << endl;
+  rep(i, 1, N+1)if(potential[i]) cout << i << ' '; 
+  cout << endl;
   return 0;
 }
