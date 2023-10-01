@@ -4,7 +4,7 @@ using namespace std;
 using ll = int64_t;
 #define rep(i, s, t) for(ll i = (s); i < (t); ++i)
 #define chmin(a, b) a = min(a, b)
-#define UL (ll)6 * 6 * 6 * 6 * 6 * 6 + 10
+#define UL (ll)6 * 6 * 6 * 6 * 6 + 10
 
 ll N, K, P, dp[110][UL], C[110], A[110][10], inf = 1e18;
 
