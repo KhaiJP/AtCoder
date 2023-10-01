@@ -6,6 +6,17 @@ using namespace std;
 int F[20][20], head[10];
 set<pair<int,int>> P[3];
 
+void clip(int H, int W, char target, set<pair<int,int>> &container){
+  int u = -100, v = -100; 
+  rep(r, 0, H)rep(c, 0, W){
+    char ch; cin >> ch;
+    if(ch != target) continue;
+    if(u == -100 && -100) u = r, v = c;
+    container.insert({r-u, c-v});
+  }
+  return ;
+}
+
 bool isFoccupied(){
   bool occupied = true;
   rep(r, 9, 15)rep(c, 9, 15){
@@ -34,23 +45,14 @@ void putPolyominos(int isput){
 }
 
 int main(){
-  rep(i, 0, 3){
-    // the left-most square on the top row is set to (0, 0)
-    // other squares are specified by relative positions
-    int u = -1, v = -1;
-    rep(r, 0, 4)rep(c, 0, 4){
-      char p; cin >> p;
-      if(p != '#') continue;
-      if(u == -1 && v == -1) u = r, v = c;
-      P[i].insert({r-u, c-v});
-    }
-  }
+  rep(i, 0, 3) clip(4, 4, '#', P[i]);
 
-  rep(s0, 0, 64)rep(s1, 0, 64)rep(s2, 0, 64){
-    int t0 = s0%16, t1 = s1%16, t2 = s2%16;
-    head[0] = t0/4, head[1] = t0%4, head[2] = s0/16;
-    head[3] = t1/4, head[4] = t1%4, head[5] = s1/16;
-    head[6] = t2/4, head[7] = t2%4, head[8] = s2/16;
+  rep(i, 0, 64*64*64){
+    int I = i;
+    rep(j, 0, 9){
+      head[j] = I % 4;
+      I /= 4;
+    }
 
     putPolyominos(1);
     if(isFoccupied()){
