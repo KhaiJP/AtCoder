@@ -1,26 +1,24 @@
 #include<iostream>
-#include<algorithm>
 using namespace std;
-typedef int64_t ll;
-#define rep(i, s, t) for(int i = (s); i < (t); ++i)
+using ll = int64_t;
+#define rep(i, s, t) for(ll i = (s); i < (t); ++i)
 
-ll A[100000], good[100100];
+ll N, Q, A[100010];
 
 int main(){
-  ll N, Q; cin >> N >> Q;
+  cin >> N >> Q;
+  rep(i, 1, N+1) cin >> A[i]; A[N+1] = 1e18+1e6;
+  N += 2;
   
-  rep(i,0,N) cin >> A[i];
-  sort(A, A+N);
-
-  rep(i,0,N) good[i] = A[i] - (i+1);
-
-  rep(q, 0, Q){
+  while(Q--){
     ll K; cin >> K;
-    ll *p = lower_bound(good, good+N, K);
-    ll  d = distance(good, p);
-    
-    if(d == N) cout << A[N-1] + ( K - good[N-1] ) << '\n';
-    else cout << A[d] -( good[d] - K + 1) << '\n';
+    ll l = 0, r = N;
+    while(l+1 < r){
+      ll mid = (l + r) / 2;
+      if(A[mid] < K + mid) l = mid;
+      else                 r = mid;
+    }
+    cout << K + l << endl;
   }
   return 0;
 }
