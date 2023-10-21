@@ -1,21 +1,18 @@
 #include<iostream>
-#include<string>
+#include<atcoder/all>
 using namespace std;
+using mint = atcoder::modint1000000007;
 #define rep(i, s, t) for(int i = (s); i < (t); ++i)
-#define fore(a, v) for(auto a : v)
 
-const int MOD =  1000000000+7;
-int dp[2010];
+mint dp[2020];
 
 int main(){
   int S; cin >> S;
-  dp[0] = 1;
-  dp[3] = 1;
-  rep(i, 4, S+1){
-    rep(j, 0, i-2){
-      dp[i] = (dp[i] + dp[j]) % MOD;
-    }
+  rep(i, 3, 2001){
+    dp[i] += 1;
+    rep(j, i+3, 2001) dp[j] += dp[i];
   }
-  cout << dp[S] << endl;
+
+  cout << dp[S].val() << endl;
   return 0;
 }
