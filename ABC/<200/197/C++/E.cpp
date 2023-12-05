@@ -18,7 +18,7 @@ int main(){
   }
   rep(i, 0, N){
     ll X, C; cin >> X >> C;
-    left_right_X[0][C] = min(left_right_X[0][C],  X);
+    left_right_X[0][C] = min(left_right_X[0][C], X);
     left_right_X[1][C] = max(left_right_X[1][C], X);
   }
   // addtional ball on X = 0 of colour N+1
