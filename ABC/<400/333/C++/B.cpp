@@ -3,7 +3,7 @@ using namespace std;
 
 bool is_adjacent(char a, char b){
   if(a > b) swap(a, b);
-  return (b-a == 1) || (a == 'A' && b == 'E');
+  return b-a == 1 || b-a == 4;
 }
 
 int main(){
