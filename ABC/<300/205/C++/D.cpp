@@ -5,20 +5,30 @@ using ll = int64_t;
 
 ll N, Q, A[100010];
 
+bool check(ll &m, ll &K){
+  return A[m]-m < K;
+}
+
+ll my_binary_search(ll K){
+  ll ok = 0, ng = N+1;
+  while(abs(ok - ng) > 1){
+    ll mid = (ok + ng) / 2;
+    if(check(mid, K)) ok = mid;
+    else              ng = mid;
+  }
+
+  return K + ok;
+}
+
 int main(){
   cin >> N >> Q;
-  rep(i, 1, N+1) cin >> A[i]; A[N+1] = 1e18+1e6;
-  N += 2;
-  
+  rep(i, 1, N+1) cin >> A[i];
+  A[N+1] = 1e18 + 1e6;
+
   while(Q--){
     ll K; cin >> K;
-    ll l = 0, r = N;
-    while(l+1 < r){
-      ll mid = (l + r) / 2;
-      if(A[mid] < K + mid) l = mid;
-      else                 r = mid;
-    }
-    cout << K + l << endl;
+    cout << my_binary_search(K) << endl;
   }
+
   return 0;
 }
