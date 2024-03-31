@@ -6,9 +6,9 @@ using ll = int64_t;
 
 // let c = popcount(C). Since popcount(A) + popcount(B) >= popcount(A^B),
 // popcount(X) + popcount(Y) = a + b >= popcount(X^Y) = popcount(C) = c,
-// which implies a + b < c -> answer = -1.`
+// which implies a + b < c -> answer = -1.
 // let a + b == c. then apprently X and Y can be made by exclusively share 1s in C.
-// namely if a=2 and b=3 and C = 0b11111, (X, Y) = (0b11000, 0b00111) is one of the answer.
+// namely if a=2 and b=3 and C = 0b11111, (X, Y) = (0b11000, 0b00111) is one of the answers.
 // if a + b > c, led d = a - b, a_ + b_ = c, (a_, b_) = (a-e, b-e), and e > 0.
 // Since (a-d) - (b-d) = a - b = d, following simultaneous Eqs hold;
 // (1) a_ + b_ = c (2) a_ - b_ = d.
