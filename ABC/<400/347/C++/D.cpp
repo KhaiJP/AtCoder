@@ -9,12 +9,12 @@ using ll = int64_t;
 // which implies a + b < c -> answer = -1.
 // let a + b == c. then apprently X and Y can be made by exclusively share 1s in C.
 // namely if a=2 and b=3 and C = 0b11111, (X, Y) = (0b11000, 0b00111) is one of the answers.
-// if a + b > c, led d = a - b, a_ + b_ = c, (a_, b_) = (a-e, b-e), and e > 0.
-// Since (a-d) - (b-d) = a - b = d, following simultaneous Eqs hold;
+// if a + b > c, led d = a - b, a_ + b_ = c, (a_, b_) = (a-z, b-z), and z > 0.
+// Since (a-z) - (b-z) = a - b = d, following simultaneous Eqs hold;
 // (1) a_ + b_ = c (2) a_ - b_ = d.
 // hence (a_, b_) = ( (c+d)/2, (c-d)/2 ). -> if (c+d)%2 == 1 (<-> (c-d)%2 ==1 ) the answer = -1.
 // X_ and Y_ where popcount(X_) = a_ and popcount(Y_) = b_ and popcount(X_^Y_) = c can be made by the procedure above.
-// let z = a - a_ = b - b_ and Z with popcount(Z) = z and Z^C = 0. then (X, Y) = (X_+Z, Y_+Z)
+// z = a - a_ = b - b_ and let Z with popcount(Z) = z and Z^C = 0. then (X, Y) = (X_+Z, Y_+Z)
 
 ll L=1;
 ll a, b, c, d, C;
