@@ -2,6 +2,7 @@ import Control.Monad
 import Data.Maybe ( isJust )
 
 
+main :: IO ()
 main = do
     [n, m, t] <- getInts
     abS' <- replicateM m $ (\[a, b] -> (a, b)) <$> getInts
