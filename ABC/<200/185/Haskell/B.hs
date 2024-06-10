@@ -6,14 +6,14 @@ main :: IO ()
 main = do
     [n, m, t] <- getInts
     abS' <- replicateM m $ (\[a, b] -> (a, b)) <$> getInts
-    let abS = reverse $ abS' ++ [(t, t)]
+    let abS = abS' ++ [(t, t)]
     let goodBattery = goodBattery' n
-    let result = foldr (\inOut mState -> mState >>= goodBattery inOut) (return (n, 0)) abS
+    let result = foldl (\mState inOut -> mState >>= goodBattery inOut) (return (n, 0)) abS
     putStrLn $ if isJust result then "Yes" else "No"
 
 
 goodBattery' :: Int -> (Int, Int) -> (Int, Int) -> Maybe (Int, Int)
-goodBattery' maxVolume (battery, now) (shopIn, shopOut)
+goodBattery' maxVolume (shopIn, shopOut) (battery, now)
     | battery' <= 0 = Nothing
     | otherwise     = Just (battery'', shopOut)
     where
