@@ -23,4 +23,3 @@ goodBattery' maxVolume (battery, now) (shopIn, shopOut)
 
 getInts :: IO [Int]
 getInts = map read . words <$> getLine
-
